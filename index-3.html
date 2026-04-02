@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myf1 — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --surface: #161616;
+      --border: #222222;
+      --accent: #5aff8a;
+      --accent2: #1aff6e;
+      --text: #e8e8e8;
+      --muted: #555555;
+      --font-head: 'Unbounded', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── GRID LINES ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(90,255,138,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(90,255,138,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 48px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0;
+      margin: 0;
+    }
+
+    .tag::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text { }
+
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .hero-name span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-family: var(--font-head);
+      font-size: clamp(12px, 2vw, 16px);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      margin-top: 12px;
+    }
+
+    /* ── SKIN ── */
+    .skin-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+    }
+
+    .skin-frame {
+      width: 150px;
+      height: 240px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .skin-frame::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border: 1px solid var(--border);
+    }
+
+    .skin-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 24px;
+      background: radial-gradient(ellipse, rgba(90,255,138,0.18) 0%, transparent 70%);
+    }
+
+    .skin-img {
+      image-rendering: pixelated;
+      width: 120px;
+      height: auto;
+      filter: drop-shadow(0 0 24px rgba(90,255,138,0.25));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .skin-nick-block {
+      width: 150px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .skin-nick {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text);
+      font-family: var(--font-mono);
+    }
+
+    .skin-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── ABOUT ── */
+    .section {
+      padding: 72px 0;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .about-card {
+      background: var(--surface);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .about-card:hover {
+      background: #1a1a1a;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 0;
+      background: var(--accent);
+      transition: height 0.4s ease;
+    }
+
+    .about-card:hover::before { height: 100%; }
+
+    .card-num {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .card-text {
+      font-size: 12px;
+      line-height: 1.8;
+      color: #888;
+    }
+
+    /* ── DESCRIPTION BLOCK ── */
+    .desc-block {
+      background: var(--surface);
+      padding: 40px;
+      border-left: 2px solid var(--accent);
+      margin-top: 2px;
+    }
+
+    .desc-block p {
+      font-size: 13px;
+      line-height: 2;
+      color: #999;
+      max-width: 620px;
+    }
+
+    .desc-block p em {
+      font-style: normal;
+      color: var(--text);
+    }
+
+    /* ── SOCIALS ── */
+    .socials-section {
+      padding: 72px 0;
+    }
+
+    .socials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px;
+      background: var(--surface);
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(90,255,138,0.04);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .social-link:hover {
+      color: var(--accent);
+    }
+
+    .social-link:hover::after { opacity: 1; }
+
+    .social-arrow {
+      font-size: 14px;
+      transition: transform 0.25s;
+    }
+
+    .social-link:hover .social-arrow { transform: translate(3px, -3px); }
+
+    .social-placeholder {
+      opacity: 0.35;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 0 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+    }
+
+    .footer-made {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.35s; }
+    .delay-4 { animation-delay: 0.5s; }
+    .delay-5 { animation-delay: 0.65s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 60px 0 60px;
+      }
+      .skin-wrapper { margin: 0 auto; }
+      .about-grid { grid-template-columns: 1fr; }
+      .socials-grid { grid-template-columns: 1fr; }
+      .hero-text { order: 2; }
+      .skin-wrapper { order: 1; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="fade-up">
+    <div class="logo">Myf1.dev</div>
+    <div class="tag">Портфолио</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="hero-name fade-up delay-2">
+        <span>Myf1</span><br>Муфи
+      </h1>
+      <p class="hero-sub fade-up delay-3">Minecraft Content Creator</p>
+    </div>
+
+    <div class="skin-wrapper fade-up delay-4">
+      <div class="skin-frame">
+        <img
+          class="skin-img"
+          src="https://crafatar.com/renders/body/xxxmyf1?scale=6&overlay"
+          alt="Minecraft skin — xxxmyf1"
+          onerror="this.src='https://crafatar.com/renders/body/Steve?scale=6&overlay'"
+        />
+      </div>
+      <div class="skin-nick-block">
+        <span class="skin-nick">xxxmyf1</span>
+        <span class="skin-label">Minecraft</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section class="section fade-up delay-5">
+    <div class="section-label">Обо мне</div>
+
+    <div class="desc-block">
+      <p>
+        Привет, я <em>Муфи (Myf1)</em> — Minecraft-криэйтор.<br>
+        Здесь ты найдёшь всё о моей деятельности, проектах и ссылки на мои платформы.<br>
+        <em>Больше информации появится совсем скоро.</em>
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="card-num">01</div>
+        <div class="card-title">Чем занимаюсь</div>
+        <div class="card-text">Создаю контент по Minecraft (и не только) — от 3D моделей и скинов до сборок.<br>Так же создаю сайты, телеграм/дискорд ботов.</div>
+      </div>
+      <div class="about-card">
+        <div class="card-num">02</div>
+        <div class="card-title">Стиль работы</div>
+        <div class="card-text">Минимализм, качество и быстрота — в каждом проекте.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SOCIALS -->
+  <section class="socials-section">
+    <div class="section-label">Социальные сети</div>
+    <div class="socials-grid">
+      <a href="https://t.me/xxxmyf1" target="_blank" class="social-link">
+        <span>Telegram</span>
+        <span class="social-arrow">↗</span>
+      </a>
+      <a href="https://discord.gg/krXFGMsk" target="_blank" class="social-link">
+        <span>Discord</span>
+        <span class="social-arrow">↗</span>
+      </a>
+      <a href="https://boosty.to/myfiandkondratiks/donate" target="_blank" class="social-link">
+        <span>Boosty</span>
+        <span class="social-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2026 Myf1 / Муфи</span>
+    <span class="footer-made">xxxmyf1</span>
+  </footer>
+
+</div>
+</body>
+</html>
