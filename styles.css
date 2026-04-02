@@ -55,11 +55,28 @@ header { padding: 48px 0 0; }
 
 .hero-name span { color: var(--accent); }
 
-.skin-img {
-  image-rendering: pixelated;
-  width: 120px;
-  filter: drop-shadow(0 0 24px rgba(90,255,138,0.25));
-  animation: float 4s ease-in-out infinite;
+// script.js
+const skinImg = document.querySelector('.skin-img');
+const loader = document.querySelector('.skin-loader');
+
+skinImg.addEventListener('loadstart', () => {
+  skinImg.classList.add('loading');
+});
+
+skinImg.addEventListener('load', () => {
+  skinImg.classList.remove('loading');
+});
+
+skinImg.addEventListener('error', () => {
+  skinImg.classList.remove('loading');
+});
+
+// Timeout - если не загрузилось за 5 сек
+setTimeout(() => {
+  if (!skinImg.complete) {
+    skinImg.src = 'https://minotar.net/armor/body/Steve/100.png';
+  }
+}, 5000);
 }
 
 @keyframes float {
