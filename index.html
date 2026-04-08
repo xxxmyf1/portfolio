@@ -66,15 +66,20 @@
       transition: max-width 0.3s ease;
     }
 
-    /* ── HEADER ── */
-    header {
-      padding: 48px 0 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
+  <header class="fade-up">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
+    <div>
+      <div class="logo">Myf1.dev</div>
+      <div class="tag">Портфолио</div>
+    </div>
+    <nav style="display: flex; gap: 20px;">
+      <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">Главная</a>
+      <a href="projects.html" style="color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Проекты</a>
+    </nav>
+  </div>
+</header>
 
+    
     .logo {
       font-family: var(--font-head);
       font-size: 15px;
