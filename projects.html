@@ -1,13 +1,134 @@
-<section class="section fade-up">
-  <div class="section-label">Мои проекты</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Myf1 — Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
   
-  <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-type">Minecraft Source</div>
-      <h3 class="project-title">Название проекта</h3>
-      <p class="project-desc">Краткое описание того, что ты сделал. Какие технологии использовал.</p>
-      <a href="#" class="project-link">Посмотреть код ↗</a>
-    </div>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --border: #222222;
+      --accent: #5aff8a;
+      --text: #e8e8e8;
+      --muted: #555555;
+      --font-head: 'Unbounded', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.035; pointer-events: none; z-index: 999; }
     
-    </div>
-</section>
+    .page { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    header { padding: 48px 0 72px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .logo { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--accent); text-transform: uppercase; }
+    
+    nav a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; margin-left: 20px; }
+    nav a.active { color: var(--accent); }
+    nav a:hover { color: var(--accent); }
+
+    .section-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; display: flex; align-items: center; gap: 16px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+ 
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      background: #1c1c1c;
+    }
+
+    .project-tag { font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; }
+    .project-title { font-family: var(--font-head); font-size: 18px; margin-bottom: 12px; }
+    .project-desc { font-size: 13px; color: #888; line-height: 1.8; margin-bottom: 24px; }
+    
+    .project-link {
+      font-size: 11px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      width: fit-content;
+      transition: 0.3s;
+    }
+    .project-card:hover .project-link { border-color: var(--accent); color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      nav a { margin-left: 0; margin-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <div class="logo">Myf1.dev</div>
+        <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.25em; margin-top: 5px;">Разработка</div>
+      </div>
+      <nav>
+        <a href="index.html">Главная</a>
+        <a href="projects.html" class="active">Проекты</a>
+      </nav>
+    </header>
+
+    <section>
+      <div class="section-label">Мои разработки и проекты</div>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div>
+            <div class="project-tag">Minecraft / 3D</div>
+            <h3 class="project-title">Custom Models Pack</h3>
+            <p class="project-desc">Набор уникальных 3D моделей для серверов Minecraft. Оптимизировано для высокого FPS и качественного визуала.</p>
+          </div>
+          <a href="#" class="project-link">Подробнее ↗</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-tag">Web Development</div>
+            <h3 class="project-title">Portfolio Website</h3>
+            <p class="project-desc">Минималистичное портфолио на чистом HTML/CSS с акцентом на типографику и производительность.</p>
+          </div>
+          <a href="#" class="project-link">GitHub ↗</a>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <div class="project-tag">Bot Dev</div>
+            <h3 class="project-title">Discord Manager</h3>
+            <p class="project-desc">Бот для автоматизации игровых сообществ. Управление ролями, логами и экономикой.</p>
+          </div>
+          <a href="#" class="project-link">В разработке...</a>
+        </div>
+      </div>
+    </section>
+
+    <footer style="padding-bottom: 48px; font-size: 10px; color: var(--muted); letter-spacing: 0.15em;">
+      © 2026 Myf1 / Все права защищены.
+    </footer>
+  </div>
+</body>
+</html>
