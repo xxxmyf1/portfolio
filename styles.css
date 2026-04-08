@@ -17,6 +17,7 @@ body {
   color: var(--text);
   font-family: var(--font-mono);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -29,10 +30,11 @@ body::before {
   z-index: 999;
 }
 
+
 .page {
   position: relative;
   z-index: 1;
-  max-width: 960px;
+  max-width: 1200px; 
   margin: 0 auto;
   padding: 0 32px;
 }
@@ -55,48 +57,44 @@ header { padding: 48px 0 0; }
 
 .hero-name span { color: var(--accent); }
 
-// script.js
-const skinImg = document.querySelector('.skin-img');
-const loader = document.querySelector('.skin-loader');
-
-skinImg.addEventListener('loadstart', () => {
-  skinImg.classList.add('loading');
-});
-
-skinImg.addEventListener('load', () => {
-  skinImg.classList.remove('loading');
-});
-
-skinImg.addEventListener('error', () => {
-  skinImg.classList.remove('loading');
-});
-
-// Timeout - если не загрузилось за 5 сек
-setTimeout(() => {
-  if (!skinImg.complete) {
-    skinImg.src = 'https://minotar.net/armor/body/Steve/100.png';
-  }
-}, 5000);
-}
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  gap: 20px; 
+  margin-top: 40px;
 }
 
 .about-card {
   background: var(--surface);
-  padding: 32px;
-  transition: background 0.3s;
+  padding: 40px; 
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  min-height: 220px; 
+  display: flex;
+  flex-direction: column;
 }
 
-.about-card:hover { background: #1a1a1a; }
+.about-card:hover { 
+  background: #1a1a1a; 
+  border-color: var(--accent);
+  transform: translateY(-5px);
+}
+
+.card-num { color: var(--accent); font-size: 14px; margin-bottom: 16px; opacity: 0.8; }
+.card-title { font-family: var(--font-head); font-size: 1.25rem; margin-bottom: 12px; }
+.card-text { color: var(--text); opacity: 0.9; line-height: 1.6; }
+
 
 .social-link {
   display: flex;
@@ -105,19 +103,18 @@ setTimeout(() => {
   background: var(--surface);
   text-decoration: none;
   color: var(--muted);
-  transition: color 0.25s;
+  transition: all 0.25s;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
 }
 
-.social-link:hover { color: var(--accent); }
+.social-link:hover { color: var(--accent); border-color: var(--accent); }
+
 
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
   animation: fadeUp 0.7s forwards;
-}
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .delay-1 { animation-delay: 0.1s; }
@@ -126,7 +123,18 @@ setTimeout(() => {
 .delay-4 { animation-delay: 0.5s; }
 .delay-5 { animation-delay: 0.65s; }
 
-@media (max-width: 680px) {
-  .hero { grid-template-columns: 1fr; }
+
+
+
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; text-align: center; gap: 32px; }
   .about-grid { grid-template-columns: 1fr; }
+  .page { padding: 0 20px; }
+  .about-card { padding: 32px; min-height: auto; }
+}
+
+
+@media (min-width: 1400px) {
+  .page { max-width: 1300px; }
+  .card-text { font-size: 1.1rem; }
 }
