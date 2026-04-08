@@ -30,7 +30,7 @@
       overflow-x: hidden;
     }
 
-    /* ── ЭФФЕКТ ШУМА ── */
+    
     body::before {
       content: '';
       position: fixed;
@@ -41,7 +41,6 @@
       z-index: 999;
     }
 
-    /* ── СЕТКА НА ФОНЕ ── */
     body::after {
       content: '';
       position: fixed;
@@ -62,7 +61,7 @@
       padding: 0 32px;
     }
 
-    /* ── ШАПКА ── */
+    
     header {
       padding: 48px 0 20px;
       display: flex;
@@ -104,7 +103,7 @@
     nav a.active { color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
     nav a:hover { color: var(--text); }
 
-    /* ── ГЛАВНЫЙ БЛОК ── */
+    
     .hero {
       padding: 80px 0;
       display: grid;
@@ -131,7 +130,7 @@
       letter-spacing: 0.1em;
     }
 
-    /* ── СКИН ── */
+    
     .skin-wrapper { display: flex; flex-direction: column; align-items: center; }
     .skin-frame {
       width: 160px;
@@ -163,7 +162,7 @@
     .skin-nick { font-size: 12px; display: block; }
     .skin-type { font-size: 9px; color: var(--muted); text-transform: uppercase; }
 
-    /* ── СЕКЦИИ ── */
+    
     .section { padding: 80px 0; }
     .section-label {
       font-size: 10px;
@@ -202,7 +201,7 @@
     .card-title { font-family: var(--font-head); font-size: 16px; margin-bottom: 12px; color: var(--text); }
     .card-text { font-size: 13px; color: #888; line-height: 1.6; }
 
-    /* ── СОЦСЕТИ ── */
+    
     .socials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -221,7 +220,7 @@
     }
     .social-link:hover { border-color: var(--accent); color: var(--accent); background: #1a1a1a; }
 
-    /* ── АНИМАЦИИ ── */
+
     .fade-up {
       opacity: 0;
       transform: translateY(20px);
@@ -229,7 +228,7 @@
     }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* ── АДАПТИВ ── */
+    
     @media (max-width: 800px) {
       header { flex-direction: column; align-items: flex-start; gap: 30px; }
       .hero { grid-template-columns: 1fr; text-align: center; }
