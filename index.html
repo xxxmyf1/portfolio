@@ -60,9 +60,10 @@
     .page {
       position: relative;
       z-index: 1;
-      max-width: 960px;
+      max-width: 1200px; /* Увеличено для ПК */
       margin: 0 auto;
       padding: 0 32px;
+      transition: max-width 0.3s ease;
     }
 
     /* ── HEADER ── */
@@ -92,8 +93,6 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 0;
-      margin: 0;
     }
 
     .tag::before {
@@ -101,20 +100,6 @@
       width: 20px;
       height: 1px;
       background: var(--muted);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s ease-in-out infinite;
-      display: inline-block;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.7); }
     }
 
     /* ── HERO ── */
@@ -126,8 +111,6 @@
       align-items: center;
     }
 
-    .hero-text { }
-
     .hero-name {
       font-family: var(--font-head);
       font-size: clamp(48px, 8vw, 88px);
@@ -138,9 +121,7 @@
       margin-bottom: 6px;
     }
 
-    .hero-name span {
-      color: var(--accent);
-    }
+    .hero-name span { color: var(--accent); }
 
     .hero-sub {
       font-family: var(--font-head);
@@ -154,14 +135,6 @@
     }
 
     /* ── SKIN ── */
-    .skin-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      position: relative;
-    }
-
     .skin-frame {
       width: 150px;
       height: 240px;
@@ -169,30 +142,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .skin-frame::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
       border: 1px solid var(--border);
-    }
-
-    .skin-frame::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 24px;
-      background: radial-gradient(ellipse, rgba(90,255,138,0.18) 0%, transparent 70%);
     }
 
     .skin-img {
       image-rendering: pixelated;
       width: 120px;
-      height: auto;
       filter: drop-shadow(0 0 24px rgba(90,255,138,0.25));
       animation: float 4s ease-in-out infinite;
     }
@@ -211,34 +166,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
     }
 
-    .skin-nick {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      color: var(--text);
-      font-family: var(--font-mono);
-    }
-
-    .skin-label {
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
-
-    /* ── ABOUT ── */
-    .section {
-      padding: 72px 0;
-    }
+    /* ── ABOUT SECTION ── */
+    .section { padding: 80px 0; }
 
     .section-label {
       font-size: 10px;
@@ -258,211 +189,130 @@
       background: var(--border);
     }
 
+    /* Исправленная сетка */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
+      gap: 24px; /* Увеличен зазор */
+      margin-top: 24px;
     }
 
     .about-card {
       background: var(--surface);
-      padding: 32px;
+      padding: 48px; /* Больше отступов для ПК */
       position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .about-card:hover {
-      background: #1a1a1a;
-    }
-
-    .about-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 2px;
-      height: 0;
-      background: var(--accent);
-      transition: height 0.4s ease;
-    }
-
-    .about-card:hover::before { height: 100%; }
-
-    .card-num {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 0.2em;
-      margin-bottom: 16px;
+      background: #1c1c1c;
+      border-color: var(--accent);
+      transform: translateY(-5px);
     }
 
     .card-title {
       font-family: var(--font-head);
-      font-size: 14px;
+      font-size: 18px; /* Крупнее на ПК */
       font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: var(--text);
     }
 
     .card-text {
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.8;
-      color: #888;
+      color: #aaa;
     }
 
-    /* ── DESCRIPTION BLOCK ── */
+    /* Блок описания */
     .desc-block {
       background: var(--surface);
-      padding: 40px;
-      border-left: 2px solid var(--accent);
-      margin-top: 2px;
+      padding: 48px;
+      border-left: 3px solid var(--accent);
+      margin-bottom: 24px;
     }
 
     .desc-block p {
-      font-size: 13px;
-      line-height: 2;
-      color: #999;
-      max-width: 620px;
-    }
-
-    .desc-block p em {
-      font-style: normal;
-      color: var(--text);
+      font-size: 16px; /* Крупнее на ПК */
+      line-height: 1.8;
+      color: #bbb;
+      max-width: 800px;
     }
 
     /* ── SOCIALS ── */
-    .socials-section {
-      padding: 72px 0;
-    }
-
     .socials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      gap: 12px;
     }
 
     .social-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 24px 28px;
+      padding: 24px 32px;
       background: var(--surface);
+      border: 1px solid var(--border);
       text-decoration: none;
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: all 0.25s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .social-link::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(90,255,138,0.04);
-      opacity: 0;
-      transition: opacity 0.25s;
+      color: var(--text);
+      transition: all 0.3s;
     }
 
     .social-link:hover {
+      border-color: var(--accent);
       color: var(--accent);
+      background: #1a1a1a;
     }
 
-    .social-link:hover::after { opacity: 1; }
-
-    .social-arrow {
-      font-size: 14px;
-      transition: transform 0.25s;
-    }
-
-    .social-link:hover .social-arrow { transform: translate(3px, -3px); }
-
-    .social-placeholder {
-      opacity: 0.35;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 32px 0 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-copy {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 0.15em;
-    }
-
-    .footer-made {
-      font-size: 10px;
-      color: #333;
-      letter-spacing: 0.1em;
+    /* ── RESPONSIVE (Мобилки) ── */
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-text { order: 2; }
+      .skin-frame, .skin-nick-block { margin: 0 auto; }
+      .about-grid, .socials-grid { grid-template-columns: 1fr; }
+      .about-card, .desc-block { padding: 32px; }
+      .page { padding: 0 20px; }
     }
 
     /* ── ANIMATIONS ── */
     .fade-up {
       opacity: 0;
-      transform: translateY(24px);
-      animation: fadeUp 0.7s forwards;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s forwards ease-out;
     }
 
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .delay-1 { animation-delay: 0.1s; }
     .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.35s; }
-    .delay-4 { animation-delay: 0.5s; }
-    .delay-5 { animation-delay: 0.65s; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 60px 0 60px;
-      }
-      .skin-wrapper { margin: 0 auto; }
-      .about-grid { grid-template-columns: 1fr; }
-      .socials-grid { grid-template-columns: 1fr; }
-      .hero-text { order: 2; }
-      .skin-wrapper { order: 1; }
-    }
+    .delay-5 { animation-delay: 0.5s; }
   </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HEADER -->
+<div class="page">
   <header class="fade-up">
     <div class="logo">Myf1.dev</div>
     <div class="tag">Портфолио</div>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
       <h1 class="hero-name fade-up delay-2">
         <span>Myf1</span><br>Муфи
       </h1>
-      <p class="hero-sub fade-up delay-3">Minecraft Content Creator</p>
+      <p class="hero-sub fade-up delay-2">Minecraft Content Creator</p>
     </div>
 
-    <div class="skin-loader"></div>
+    <div class="skin-wrapper fade-up delay-2">
       <div class="skin-frame">
-        <img
-          class="skin-img"
-  src="https://minotar.net/armor/body/xxxmyf1/100.png"
-  alt="Minecraft skin — xxxmyf1"
-  onerror="this.src='https://minotar.net/armor/body/Steve/100.png'"
-        />
+        <img class="skin-img" src="https://minotar.net/armor/body/xxxmyf1/100.png" alt="Skin" onerror="this.src='https://minotar.net/armor/body/Steve/100.png'">
       </div>
       <div class="skin-nick-block">
         <span class="skin-nick">xxxmyf1</span>
@@ -471,9 +321,6 @@
     </div>
   </section>
 
-  <hr class="divider" />
-
-  <!-- ABOUT -->
   <section class="section fade-up delay-5">
     <div class="section-label">Обо мне</div>
 
@@ -489,45 +336,36 @@
       <div class="about-card">
         <div class="card-num">01</div>
         <div class="card-title">Чем занимаюсь</div>
-        <div class="card-text">Создаю контент по Minecraft (и не только) — от 3D моделей и скинов до сборок.<br>Так же создаю сайты, телеграм/дискорд ботов.</div>
+        <div class="card-text">Создаю контент по Minecraft — от 3D моделей и скинов до сборок. Также разрабатываю сайты и ботов.</div>
       </div>
       <div class="about-card">
         <div class="card-num">02</div>
         <div class="card-title">Стиль работы</div>
-        <div class="card-text">Минимализм, качество и быстрота — в каждом проекте.</div>
+        <div class="card-text">Минимализм, качество и быстрота — приоритет в каждом моем проекте.</div>
       </div>
     </div>
   </section>
 
-  <hr class="divider" />
-
-  <!-- SOCIALS -->
-  <section class="socials-section">
+  <section class="socials-section fade-up">
     <div class="section-label">Социальные сети</div>
     <div class="socials-grid">
       <a href="https://t.me/xxxmyf1" target="_blank" class="social-link">
-        <span>Telegram</span>
-        <span class="social-arrow">↗</span>
+        <span>Telegram</span><span class="social-arrow">↗</span>
       </a>
       <a href="https://discord.gg/krXFGMsk" target="_blank" class="social-link">
-        <span>Discord</span>
-        <span class="social-arrow">↗</span>
+        <span>Discord</span><span class="social-arrow">↗</span>
       </a>
       <a href="https://boosty.to/myfiandkondratiks/donate" target="_blank" class="social-link">
-        <span>Boosty</span>
-        <span class="social-arrow">↗</span>
+        <span>Boosty</span><span class="social-arrow">↗</span>
       </a>
     </div>
   </section>
 
-  <hr class="divider" />
-
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-copy">© 2026 Myf1 / Муфи</span>
-    <span class="footer-made">xxxmyf1</span>
+  <footer class="fade-up">
+    <span class="footer-copy">© 2026 Myf1</span>
+    <span class="footer-made">Designed by xxxmyf1</span>
   </footer>
-
 </div>
+
 </body>
 </html>
