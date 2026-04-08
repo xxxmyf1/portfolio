@@ -11,11 +11,9 @@
 
     :root {
       --bg: #0a0a0a;
-      --bg2: #111111;
       --surface: #161616;
       --border: #222222;
       --accent: #5aff8a;
-      --accent2: #1aff6e;
       --text: #e8e8e8;
       --muted: #555555;
       --font-head: 'Unbounded', sans-serif;
@@ -32,7 +30,7 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
+    /* ── ЭФФЕКТ ШУМА ── */
     body::before {
       content: '';
       position: fixed;
@@ -43,7 +41,7 @@
       z-index: 999;
     }
 
-    /* ── GRID LINES ── */
+    /* ── СЕТКА НА ФОНЕ ── */
     body::after {
       content: '';
       position: fixed;
@@ -56,29 +54,23 @@
       z-index: 0;
     }
 
-    /* ── LAYOUT ── */
     .page {
       position: relative;
       z-index: 1;
-      max-width: 1200px; /* Увеличено для ПК */
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 32px;
-      transition: max-width 0.3s ease;
     }
 
-  <header class="fade-up">
-  <div style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
-    <div>
-      <div class="logo">Myf1.dev</div>
-      <div class="tag">Портфолио</div>
-    </div>
-    <nav style="display: flex; gap: 20px;">
-      <a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">Главная</a>
-      <a href="projects.html" style="color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Проекты</a>
-    </nav>
-  </div>
-</header>
+    /* ── ШАПКА ── */
+    header {
+      padding: 48px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
 
+    .logo-area { display: flex; flex-direction: column; gap: 8px; }
     
     .logo {
       font-family: var(--font-head);
@@ -87,7 +79,6 @@
       letter-spacing: 0.2em;
       color: var(--accent);
       text-transform: uppercase;
-      line-height: 1;
     }
 
     .tag {
@@ -99,276 +90,221 @@
       text-transform: uppercase;
       color: var(--muted);
     }
+    .tag::before { content: ''; width: 20px; height: 1px; background: var(--muted); }
 
-    .tag::before {
-      content: '';
-      width: 20px;
-      height: 1px;
-      background: var(--muted);
+    nav { display: flex; gap: 32px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s;
     }
+    nav a.active { color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 4px; }
+    nav a:hover { color: var(--text); }
 
-    /* ── HERO ── */
+    /* ── ГЛАВНЫЙ БЛОК ── */
     .hero {
-      padding: 72px 0 80px;
+      padding: 80px 0;
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 60px;
+      gap: 40px;
       align-items: center;
     }
 
     .hero-name {
       font-family: var(--font-head);
-      font-size: clamp(48px, 8vw, 88px);
+      font-size: clamp(40px, 8vw, 80px);
       font-weight: 900;
       line-height: 0.9;
-      letter-spacing: -0.03em;
       color: var(--text);
-      margin-bottom: 6px;
     }
-
     .hero-name span { color: var(--accent); }
 
     .hero-sub {
       font-family: var(--font-head);
-      font-size: clamp(12px, 2vw, 16px);
-      font-weight: 300;
-      letter-spacing: 0.15em;
+      font-size: 14px;
       color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 40px;
-      margin-top: 12px;
+      margin-top: 20px;
+      letter-spacing: 0.1em;
     }
 
-    /* ── SKIN ── */
+    /* ── СКИН ── */
+    .skin-wrapper { display: flex; flex-direction: column; align-items: center; }
     .skin-frame {
-      width: 150px;
+      width: 160px;
       height: 240px;
-      position: relative;
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
     }
-
     .skin-img {
-      image-rendering: pixelated;
       width: 120px;
-      filter: drop-shadow(0 0 24px rgba(90,255,138,0.25));
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 20px rgba(90,255,138,0.2));
       animation: float 4s ease-in-out infinite;
     }
-
     @keyframes float {
-      0%, 100% { transform: translateY(0px); }
+      0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-
-    .skin-nick-block {
-      width: 150px;
+    .skin-label-box {
+      width: 160px;
+      padding: 12px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-top: none;
-      padding: 10px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
     }
+    .skin-nick { font-size: 12px; display: block; }
+    .skin-type { font-size: 9px; color: var(--muted); text-transform: uppercase; }
 
-    /* ── ABOUT SECTION ── */
+    /* ── СЕКЦИИ ── */
     .section { padding: 80px 0; }
-
     .section-label {
       font-size: 10px;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
       display: flex;
       align-items: center;
       gap: 16px;
     }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .desc-block {
+      background: var(--surface);
+      padding: 40px;
+      border-left: 3px solid var(--accent);
+      font-size: 16px;
+      line-height: 1.8;
+      color: #bbb;
     }
 
-    /* Исправленная сетка */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px; /* Увеличен зазор */
-      margin-top: 24px;
+      gap: 20px;
+      margin-top: 20px;
     }
-
     .about-card {
       background: var(--surface);
-      padding: 48px; /* Больше отступов для ПК */
-      position: relative;
+      padding: 40px;
       border: 1px solid var(--border);
-      transition: all 0.3s ease;
-      min-height: 240px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      transition: 0.3s;
     }
+    .about-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+    .card-title { font-family: var(--font-head); font-size: 16px; margin-bottom: 12px; color: var(--text); }
+    .card-text { font-size: 13px; color: #888; line-height: 1.6; }
 
-    .about-card:hover {
-      background: #1c1c1c;
-      border-color: var(--accent);
-      transform: translateY(-5px);
-    }
-
-    .card-title {
-      font-family: var(--font-head);
-      font-size: 18px; /* Крупнее на ПК */
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .card-text {
-      font-size: 14px;
-      line-height: 1.8;
-      color: #aaa;
-    }
-
-    /* Блок описания */
-    .desc-block {
-      background: var(--surface);
-      padding: 48px;
-      border-left: 3px solid var(--accent);
-      margin-bottom: 24px;
-    }
-
-    .desc-block p {
-      font-size: 16px; /* Крупнее на ПК */
-      line-height: 1.8;
-      color: #bbb;
-      max-width: 800px;
-    }
-
-    /* ── SOCIALS ── */
+    /* ── СОЦСЕТИ ── */
     .socials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 15px;
     }
-
     .social-link {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 24px 32px;
+      padding: 24px;
       background: var(--surface);
       border: 1px solid var(--border);
       text-decoration: none;
       color: var(--text);
-      transition: all 0.3s;
+      font-size: 13px;
+      transition: 0.3s;
     }
+    .social-link:hover { border-color: var(--accent); color: var(--accent); background: #1a1a1a; }
 
-    .social-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: #1a1a1a;
-    }
-
-    /* ── RESPONSIVE (Мобилки) ── */
-    @media (max-width: 800px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero-text { order: 2; }
-      .skin-frame, .skin-nick-block { margin: 0 auto; }
-      .about-grid, .socials-grid { grid-template-columns: 1fr; }
-      .about-card, .desc-block { padding: 32px; }
-      .page { padding: 0 20px; }
-    }
-
-    /* ── ANIMATIONS ── */
+    /* ── АНИМАЦИИ ── */
     .fade-up {
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp 0.6s forwards ease-out;
     }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
+    /* ── АДАПТИВ ── */
+    @media (max-width: 800px) {
+      header { flex-direction: column; align-items: flex-start; gap: 30px; }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .skin-wrapper { margin: 0 auto; }
+      .about-grid, .socials-grid { grid-template-columns: 1fr; }
     }
-
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-5 { animation-delay: 0.5s; }
   </style>
 </head>
 <body>
 
 <div class="page">
   <header class="fade-up">
-    <div class="logo">Myf1.dev</div>
-    <div class="tag">Портфолио</div>
+    <div class="logo-area">
+      <div class="logo">Myf1.dev</div>
+      <div class="tag">Портфолио</div>
+    </div>
+    <nav>
+      <a href="index.html" class="active">Главная</a>
+      <a href="projects.html">Проекты</a>
+    </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-text">
-      <h1 class="hero-name fade-up delay-2">
-        <span>Myf1</span><br>Муфи
-      </h1>
-      <p class="hero-sub fade-up delay-2">Minecraft Content Creator</p>
-    </div>
-
-    <div class="skin-wrapper fade-up delay-2">
-      <div class="skin-frame">
-        <img class="skin-img" src="https://minotar.net/armor/body/xxxmyf1/100.png" alt="Skin" onerror="this.src='https://minotar.net/armor/body/Steve/100.png'">
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-name fade-up" style="animation-delay: 0.1s;">
+          <span>Myf1</span><br>Муфи
+        </h1>
+        <p class="hero-sub fade-up" style="animation-delay: 0.2s;">
+          Minecraft Content Creator & Dev
+        </p>
       </div>
-      <div class="skin-nick-block">
-        <span class="skin-nick">xxxmyf1</span>
-        <span class="skin-label">Minecraft</span>
+
+      <div class="skin-wrapper fade-up" style="animation-delay: 0.3s;">
+        <div class="skin-frame">
+          <img class="skin-img" src="https://minotar.net/armor/body/xxxmyf1/100.png" alt="Skin" onerror="this.src='https://minotar.net/armor/body/Steve/100.png'">
+        </div>
+        <div class="skin-label-box">
+          <span class="skin-nick">xxxmyf1</span>
+          <span class="skin-type">Minecraft</span>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section fade-up delay-5">
-    <div class="section-label">Обо мне</div>
-
-    <div class="desc-block">
-      <p>
-        Привет, я <em>Муфи (Myf1)</em> — Minecraft-разработчик.<br>
-        Здесь ты найдёшь всё о моей деятельности, проектах и ссылки на мои платформы.<br>
-        <em>Больше информации появится совсем скоро.</em>
-      </p>
-    </div>
-
-    <div class="about-grid">
-      <div class="about-card">
-        <div class="card-num">01</div>
-        <div class="card-title">Чем занимаюсь</div>
-        <div class="card-text">Создаю контент по Minecraft — от 3D моделей и скинов до сборок. Также разрабатываю сайты и ботов.</div>
+    <section class="section fade-up" style="animation-delay: 0.4s;">
+      <div class="section-label">Обо мне</div>
+      <div class="desc-block">
+        <p>Привет, я Муфи — разработчик контента для Minecraft. Создаю уникальные 3D модели, сборки и занимаюсь веб-разработкой. Мой фокус — качество и эстетика кода.</p>
       </div>
-      <div class="about-card">
-        <div class="card-num">02</div>
-        <div class="card-title">Стиль работы</div>
-        <div class="card-text">Минимализм, качество и быстрота — приоритет в каждом моем проекте.</div>
+      
+      <div class="about-grid">
+        <div class="about-card">
+          <h3 class="card-title">Разработка</h3>
+          <p class="card-text">Создание сайтов, ботов и сложных технических решений для серверов.</p>
+        </div>
+        <div class="about-card">
+          <h3 class="card-title">Дизайн</h3>
+          <p class="card-text">Проработка интерфейсов и 3D визуализация игровых ассетов.</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="socials-section fade-up">
-    <div class="section-label">Социальные сети</div>
-    <div class="socials-grid">
-      <a href="https://t.me/xxxmyf1" target="_blank" class="social-link">
-        <span>Telegram</span><span class="social-arrow">↗</span>
-      </a>
-      <a href="https://discord.gg/krXFGMsk" target="_blank" class="social-link">
-        <span>Discord</span><span class="social-arrow">↗</span>
-      </a>
-      <a href="https://boosty.to/myfiandkondratiks/donate" target="_blank" class="social-link">
-        <span>Boosty</span><span class="social-arrow">↗</span>
-      </a>
-    </div>
-  </section>
+    <section class="section fade-up" style="animation-delay: 0.5s;">
+      <div class="section-label">Контакты</div>
+      <div class="socials-grid">
+        <a href="https://t.me/xxxmyf1" target="_blank" class="social-link"><span>Telegram</span> <span>↗</span></a>
+        <a href="https://discord.gg/krXFGMsk" target="_blank" class="social-link"><span>Discord</span> <span>↗</span></a>
+        <a href="https://boosty.to/myfiandkondratiks/donate" target="_blank" class="social-link"><span>Boosty</span> <span>↗</span></a>
+      </div>
+    </section>
+  </main>
 
-  <footer class="fade-up">
-    <span class="footer-copy">© 2026 Myf1</span>
-    <span class="footer-made">Designed by xxxmyf1</span>
+  <footer class="fade-up" style="padding: 40px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 10px; color: var(--muted);">
+    <span>© 2026 MYF1</span>
+    <span>DESIGNED BY XXXMYF1</span>
   </footer>
 </div>
 
